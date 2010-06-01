@@ -52,7 +52,7 @@ class BaseScheduler(service.MultiService, ComparableMixin):
 
     upstream_name = None # set to be notified about upstream buildsets
 
-    def __init__(self, name, builderNames, properties):
+    def __init__(self, name, builderNames, properties, priority=0):
         service.MultiService.__init__(self)
         self.name = name
         self.properties = Properties()
@@ -65,6 +65,7 @@ class BaseScheduler(service.MultiService, ComparableMixin):
         for b in builderNames:
             assert isinstance(b, str), errmsg
         self.builderNames = builderNames
+        self.priority = priority
         # I will acquire a .schedulerid value before I'm started
 
     def compareToOther(self, them):
@@ -98,13 +99,15 @@ class BaseScheduler(service.MultiService, ComparableMixin):
     def getPendingBuildTimes(self):
         return []
 
-    def create_buildset(self, ssid, reason, t, props=None, builderNames=None):
+    def create_buildset(self, ssid, reason, t, props=None, builderNames=None, priority=None):
         db = self.parent.db
         if props is None:
             props = self.properties
         if builderNames is None:
             builderNames = self.builderNames
-        bsid = db.create_buildset(ssid, reason, props, builderNames, t)
+        if priority is None:
+            priority = self.priority
+        bsid = db.create_buildset(ssid, reason, props, builderNames, t, priority=priority)
         # notify downstream schedulers so they can watch for it to complete
         self.parent.publish_buildset(self.name, bsid, t)
         return bsid

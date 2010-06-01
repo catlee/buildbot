@@ -142,6 +142,11 @@ class BotMaster(service.MultiService):
         return cmp(t1, t2)
 
     def _sort_builders(self, parent, builders):
+        # Don't bother trying builders that have no available slaves
+        for b in builders[:]:
+            available_slaves = [sb for sb in b.slaves if sb.isAvailable()]
+            if not available_slaves:
+                builders.remove(b)
         return sorted(builders, self._sortfunc)
 
     def _get_processors(self):
