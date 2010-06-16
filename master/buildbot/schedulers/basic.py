@@ -50,7 +50,7 @@ class Scheduler(base.BaseScheduler, base.ClassifierMixin):
 
     def __init__(self, name, shouldntBeSet=NotABranch, treeStableTimer=None,
                 builderNames=None, branch=NotABranch, fileIsImportant=None,
-                properties={}, categories=None, change_filter=None):
+                properties={}, categories=None, change_filter=None, priority=None):
         """
         @param name: the name of this Scheduler
         @param treeStableTimer: the duration, in seconds, for which the tree
@@ -73,7 +73,7 @@ class Scheduler(base.BaseScheduler, base.ClassifierMixin):
 
         @param properties: properties to apply to all builds started from
                            this scheduler
-        
+
         @param change_filter: a buildbot.schedulers.filter.ChangeFilter instance
                               used to filter changes for this scheduler
 
@@ -81,12 +81,17 @@ class Scheduler(base.BaseScheduler, base.ClassifierMixin):
                        attention to. Any Change that is not in this branch
                        will be ignored. It can be set to None to only pay
                        attention to the default branch.
+
         @param categories: A list of categories of changes to accept
+
+        @param priority: An integer, or a function returning an integer, that
+        sets the priority of build requests created by this scheduler.  The
+        function is passed (ssid, reason, properties, buildername, t)
         """
         assert shouldntBeSet is NotABranch, \
                 "pass arguments to Scheduler using keyword arguments"
 
-        base.BaseScheduler.__init__(self, name, builderNames, properties)
+        base.BaseScheduler.__init__(self, name, builderNames, properties, priority=priority)
         self.make_filter(change_filter=change_filter, branch=branch, categories=categories)
         self.treeStableTimer = treeStableTimer
         self.branch = branch
@@ -165,7 +170,7 @@ class AnyBranchScheduler(Scheduler):
                      'fileIsImportant', 'properties', 'change_filter')
     def __init__(self, name, treeStableTimer, builderNames,
                  fileIsImportant=None, properties={}, categories=None,
-                 branches=NotABranch, change_filter=None):
+                 branches=NotABranch, change_filter=None, priority=None):
         """
         @param name: the name of this Scheduler
         @param treeStableTimer: the duration, in seconds, for which the tree
@@ -194,7 +199,8 @@ class AnyBranchScheduler(Scheduler):
         @param categories: (deprecated)
         """
 
-        base.BaseScheduler.__init__(self, name, builderNames, properties)
+        base.BaseScheduler.__init__(self, name, builderNames, properties,
+                priority=priority)
         self.make_filter(change_filter=change_filter, branch=branches, categories=categories)
         self.treeStableTimer = treeStableTimer
         if fileIsImportant:
@@ -227,9 +233,10 @@ class Dependent(base.BaseScheduler):
     # buildset
     compare_attrs = ('name', 'upstream_name', 'builderNames', 'properties')
 
-    def __init__(self, name, upstream, builderNames, properties={}):
+    def __init__(self, name, upstream, builderNames, properties={}, priority=None):
         assert interfaces.IScheduler.providedBy(upstream)
-        base.BaseScheduler.__init__(self, name, builderNames, properties)
+        base.BaseScheduler.__init__(self, name, builderNames, properties,
+                priority=priority)
         # by setting self.upstream_name, our buildSetSubmitted() method will
         # be called whenever that upstream Scheduler adds a buildset to the
         # DB.

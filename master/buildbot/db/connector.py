@@ -667,7 +667,7 @@ class DBConnector(util.ComparableMixin):
         return ss.ssid
 
     def create_buildset(self, ssid, reason, properties, builderNames, t,
-                        external_idstring=None, priority=0):
+            priority, external_idstring=None):
         # this creates both the BuildSet and the associated BuildRequests
         now = self._getCurrentTime()
         t.execute(self.quoteq("INSERT INTO buildsets"
@@ -684,10 +684,16 @@ class DBConnector(util.ComparableMixin):
                       (bsid, propname, encoded_value))
         brids = []
         for bn in builderNames:
+            if callable(priority):
+                priority_val = priority(ssid, reason, properties, bn, t)
+            elif priority is None:
+                priority_val = 0
+            else:
+                priority_val = priority
             t.execute(self.quoteq("INSERT INTO buildrequests"
                                   " (buildsetid, buildername, submitted_at, priority)"
                                   " VALUES (?,?,?,?)"),
-                      (bsid, bn, now, priority))
+                      (bsid, bn, now, priority_val))
             brid = t.lastrowid
             brids.append(brid)
         self.notify("add-buildset", bsid)
