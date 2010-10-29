@@ -55,10 +55,6 @@ class ComparableMixin(object):
         return hash(tuple(map(str, alist)))
 
     def __cmp__(self, them):
-        result = cmp(type(self), type(them))
-        if result:
-            return result
-
         result = cmp(self.__class__.__name__, them.__class__.__name__)
         if result:
             return result
