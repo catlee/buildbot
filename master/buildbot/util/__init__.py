@@ -40,13 +40,13 @@ def formatInterval(eta):
     eta_parts.append("%d secs" % eta)
     return ", ".join(eta_parts)
 
-class ComparableMixin:
+class ComparableMixin(object):
     """Specify a list of attributes that are 'important'. These will be used
     for all comparison operations."""
 
     compare_attrs = []
 
-    class _None:
+    class _None(object):
         pass
 
     def __hash__(self):
@@ -79,7 +79,7 @@ def safeTranslate(str):
         str = str.encode('utf8')
     return str.translate(badchars_map)
 
-class LRUCache:
+class LRUCache(object):
     """
     A simple least-recently-used cache, with a fixed maximum size.  Note that
     an item's memory will not necessarily be free if other code maintains a reference
@@ -145,7 +145,7 @@ except AttributeError:
 # changes and schedulers consider None to be a legitimate name for a branch,
 # which makes default function keyword arguments hard to handle.  This value
 # is always false.
-class NotABranch:
+class NotABranch(object):
     def __nonzero__(self):
         return False
 NotABranch = NotABranch()

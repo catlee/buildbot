@@ -9,18 +9,18 @@ from buildbot.process.buildstep import LoggingBuildStep
 
 from mock import Mock
 
-class FakeChange:
+class FakeChange(object):
     properties = Properties()
     who = "me"
 
-class FakeSource:
+class FakeSource(object):
     changes = [FakeChange()]
     branch = None
     revision = "12345"
     repository = None
     project = None
 
-class FakeRequest:
+class FakeRequest(object):
     startCount = 0
     source = FakeSource()
     reason = "Because"
@@ -32,7 +32,7 @@ class FakeRequest:
     def mergeReasons(self, others):
         return self.reason
 
-class FakeBuildStep:
+class FakeBuildStep(object):
     haltOnFailure = False
     flunkOnWarnings = False
     flunkOnFailure = True
@@ -41,7 +41,7 @@ class FakeBuildStep:
     alwaysRun = False
     name = 'fake'
 
-class FakeMaster:
+class FakeMaster(object):
     locks = {}
     parent = Mock()
     def getLockByID(self, lockid):

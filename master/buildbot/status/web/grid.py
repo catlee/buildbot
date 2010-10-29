@@ -4,7 +4,7 @@ from buildbot.status.web.base import HtmlResource
 from buildbot.status.web.base import build_get_class, path_to_builder, path_to_build
 from buildbot.sourcestamp import SourceStamp
 
-class ANYBRANCH: pass # a flag value, used below
+class ANYBRANCH(object): pass # a flag value, used below
 
 class GridStatusMixin(object):
     def getTitle(self, request):

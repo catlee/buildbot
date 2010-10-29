@@ -5,7 +5,7 @@ from twisted.application import service
 from buildbot.interfaces import IStatusReceiver
 from buildbot import util, pbutil
 
-class StatusReceiver:
+class StatusReceiver(object):
     implements(IStatusReceiver)
 
     def requestSubmitted(self, request):

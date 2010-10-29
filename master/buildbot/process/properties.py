@@ -113,7 +113,7 @@ class Properties(util.ComparableMixin):
         else:
             return value
 
-class PropertyMap:
+class PropertyMap(object):
     """
     Privately-used mapping object to implement WithProperties' substitutions,
     including the rendering of None as ''.

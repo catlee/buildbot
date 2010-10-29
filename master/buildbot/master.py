@@ -448,7 +448,7 @@ class DebugPerspective(NewCredPerspective):
     def perspective_print(self, msg):
         print "debug", msg
 
-class Dispatcher:
+class Dispatcher(object):
     implements(portal.IRealm)
 
     def __init__(self):
@@ -489,9 +489,9 @@ class Dispatcher:
 
 ########################################
 
-class _Unset: pass  # marker
+class _Unset(object): pass  # marker
 
-class LogRotation: 
+class LogRotation(object): 
     '''holds log rotation parameters (for WebStatus)'''
     def __init__(self):
         self.rotateLength = 1 * 1000 * 1000 
@@ -1173,7 +1173,7 @@ class BuildMaster(service.MultiService):
         return bsid
 
 
-class Control:
+class Control(object):
     implements(interfaces.IControl)
 
     def __init__(self, master):

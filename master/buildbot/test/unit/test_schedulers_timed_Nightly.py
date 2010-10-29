@@ -7,7 +7,7 @@ from buildbot.changes.manager import ChangeManager
 from buildbot.changes.changes import Change
 from buildbot.test.fake.fakedb import FakeDBConn
 
-class DummyParent:
+class DummyParent(object):
     def __init__(self, dbconn):
         self.db = dbconn
         self.change_svc = ChangeManager()

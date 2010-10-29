@@ -5,7 +5,7 @@ from twisted.internet import reactor
 from buildbot.scripts.logwatcher import LogWatcher, BuildmasterTimeoutError, \
      ReconfigError
 
-class Reconfigurator:
+class Reconfigurator(object):
     def run(self, config):
         # Returns "Microsoft" for Vista and "Windows" for other versions
         if platform.system() in ("Windows", "Microsoft"):

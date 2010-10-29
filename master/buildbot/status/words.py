@@ -30,7 +30,7 @@ class UsageError(ValueError):
     def __init__(self, string = "Invalid usage", *more):
         ValueError.__init__(self, string, *more)
 
-class IrcBuildRequest:
+class IrcBuildRequest(object):
     hasStarted = False
     timer = None
 

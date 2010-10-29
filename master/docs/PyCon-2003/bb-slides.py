@@ -1,7 +1,7 @@
 #! /usr/bin/python
 from slides import Lecture, NumSlide, Slide, Bullet, SubBullet, PRE, URL
 
-class Raw:
+class Raw(object):
     def __init__(self, title, html):
         self.title = title
         self.html = html

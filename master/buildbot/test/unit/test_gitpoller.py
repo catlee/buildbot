@@ -2,7 +2,7 @@ from twisted.trial import unittest
 from exceptions import Exception
 from buildbot.changes import gitpoller
 
-class GitOutputHelper:
+class GitOutputHelper(object):
     """just used to keep shared vars out of the global namespace"""
     desiredOutput = None
 

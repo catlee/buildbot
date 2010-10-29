@@ -12,7 +12,7 @@ from twisted.internet import reactor
 from twisted.python import log
 
 
-class ViewCvsPoller:
+class ViewCvsPoller(object):
 
     def __init__(self):
 

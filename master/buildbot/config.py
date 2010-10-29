@@ -1,7 +1,7 @@
 from buildbot.util import safeTranslate
 
 
-class BuilderConfig:
+class BuilderConfig(object):
     """
 
     Used in config files to specify a builder - this can be subclassed by users

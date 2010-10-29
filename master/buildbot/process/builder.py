@@ -175,7 +175,7 @@ class AbstractSlaveBuilder(pb.Referenceable):
         self.remoteCommands = None
 
 
-class Ping:
+class Ping(object):
     running = False
 
     def ping(self, remote):
@@ -958,7 +958,7 @@ class Builder(pb.Referenceable, service.MultiService):
             self.remote.callRemote("shutdown")
 
 
-class BuilderControl:
+class BuilderControl(object):
     implements(interfaces.IBuilderControl)
 
     def __init__(self, builder, parent):
@@ -1012,7 +1012,7 @@ class BuilderControl:
                 return False
         return True
 
-class BuildRequestControl:
+class BuildRequestControl(object):
     implements(interfaces.IBuildRequestControl)
 
     def __init__(self, builder, request):

@@ -43,7 +43,7 @@ from buildbot.process.properties import Properties
 from buildbot.util import ComparableMixin, NotABranch
 from buildbot.schedulers import filter
 
-class _None:
+class _None(object):
     pass
 
 class BaseScheduler(service.MultiService, ComparableMixin):
@@ -109,7 +109,7 @@ class BaseScheduler(service.MultiService, ComparableMixin):
         self.parent.publish_buildset(self.name, bsid, t)
         return bsid
 
-class ClassifierMixin:
+class ClassifierMixin(object):
     """
     Mixin to classify changes using self.change_filter, a filter.ChangeFilter instance.
     """

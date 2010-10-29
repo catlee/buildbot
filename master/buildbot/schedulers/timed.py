@@ -41,7 +41,7 @@ from twisted.python import log
 from buildbot.sourcestamp import SourceStamp
 from buildbot.schedulers import base
 
-class TimedBuildMixin:
+class TimedBuildMixin(object):
 
     def start_HEAD_build(self, t):
         # start a build (of the tip of self.branch)

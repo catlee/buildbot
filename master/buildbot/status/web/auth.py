@@ -12,7 +12,7 @@ class IAuth(Interface):
     def errmsg(self):
             """Get the reason authentication failed."""
 
-class AuthBase:
+class AuthBase(object):
     err = ""
 
     def errmsg(self):

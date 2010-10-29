@@ -58,7 +58,7 @@ SUCCESS, WARNINGS, FAILURE, SKIPPED, EXCEPTION = range(5)
 Results = ["success", "warnings", "failure", "skipped", "exception"]
 
 
-class Box:
+class Box(object):
 
     def __init__(self, buildername, hbox, tips, size, hslice):
         self.buildername = buildername
@@ -271,7 +271,7 @@ class MyApplet(pb.Referenceable):
         self.disconnect()
 
 
-class Prefs:
+class Prefs(object):
 
     def __init__(self, parent):
         self.parent = parent

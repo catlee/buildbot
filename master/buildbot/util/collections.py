@@ -12,7 +12,7 @@ except ImportError:
                 self[key] = self._default_factory()
             return dict.__getitem__(self, key)
 
-class KeyedSets:
+class KeyedSets(object):
     """
     This is a collection of named sets.  In principal, it contains an empty set
     for every name, and you can add things to sets, discard things from sets,

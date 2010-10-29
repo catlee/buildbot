@@ -18,7 +18,7 @@ from buildbot.util import now
 from buildbot.status.builder import SUCCESS, WARNINGS, FAILURE, EXCEPTION
 
 '''
-class Pane:
+class Pane(object):
     def __init__(self):
         pass
 
@@ -257,7 +257,7 @@ class CompactBuilder(Builder):
         eta.callRemote("unsubscribe", self)
 '''
 
-class Box:
+class Box(object):
     def __init__(self, text="?"):
         self.text = text
         self.box = gtk.EventBox()
@@ -310,7 +310,7 @@ class Box:
 
 
 
-class ThreeRowBuilder:
+class ThreeRowBuilder(object):
     def __init__(self, name, ref):
         self.name = name
 

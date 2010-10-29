@@ -85,7 +85,7 @@ class TimeoutError(Exception):
     def __init__(self, msg):
         Exception.__init__(self, msg)
 
-class RetryingCursor:
+class RetryingCursor(object):
     max_retry_time = 1800 # Half an hour
     max_sleep_time = 1
 
@@ -122,7 +122,7 @@ class RetryingCursor:
     def __getattr__(self, name):
         return getattr(self.cursor, name)
 
-class RetryingConnection:
+class RetryingConnection(object):
     def __init__(self, dbapi, conn):
         self.dbapi = dbapi
         self.conn = conn

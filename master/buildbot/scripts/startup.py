@@ -1,7 +1,7 @@
 
 import os, sys, time
 
-class Follower:
+class Follower(object):
     def follow(self):
         from twisted.internet import reactor
         from buildbot.scripts.logwatcher import LogWatcher

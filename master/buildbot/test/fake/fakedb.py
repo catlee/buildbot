@@ -37,7 +37,7 @@ class FakeDBSpec(object):
 # transactions aren't emulated, scheduler state is hacked, and some methods
 # are missing or are just stubbed out.
 ###
-class FakeDBConn:
+class FakeDBConn(object):
     def __init__(self):
         self.schedulers = []
         self.changes = []
