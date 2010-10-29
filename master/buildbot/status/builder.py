@@ -645,9 +645,12 @@ class HTMLLogFile(object):
 class Event(object):
     implements(interfaces.IStatusEvent)
 
-    started = None
-    finished = None
-    text = []
+    __slots__ = ('started', 'finished', 'text')
+
+    def __init__(self):
+        self.started = None
+        self.finished = None
+        self.text = []
 
     # IStatusEvent methods
     def getTimes(self):
