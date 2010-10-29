@@ -36,15 +36,15 @@ class Change(object):
 
     implements(interfaces.IStatusEvent)
 
-    number = None
-
-    branch = None
-    category = None
-    revision = None # used to create a source-stamp
+    __slots__ = ('who', 'files', 'comments', 'isdir', 'links',
+                 'revision', 'when', 'branch', 'category', 'revlink',
+                 'properties', 'repository', 'project', 'files',
+                 'number')
 
     def __init__(self, who, files, comments, isdir=0, links=None,
                  revision=None, when=None, branch=None, category=None,
                  revlink='', properties={}, repository='', project=''):
+        self.number = None
         self.who = who
         self.comments = comments
         self.isdir = isdir
