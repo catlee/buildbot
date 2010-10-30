@@ -79,13 +79,20 @@ class Change(object):
         self.files = files[:]
         self.files.sort()
 
-    def __setstate__(self, dict):
-        self.__dict__ = dict
+    def __setstate__(self, d):
+        for k, v in d.items():
+            setattr(self, k, v)
+
         # Older Changes won't have a 'properties' attribute in them
-        if not hasattr(self, 'properties'):
+        if 'properties' not in d:
             self.properties = Properties()
-        if not hasattr(self, 'revlink'):
+
+        # Nor a revlink attribute
+        if 'revlink' not in d:
             self.revlink = ""
+
+    def __getstate__(self):
+        return dict((k, getattr(self, k)) for k in self.__slots__)
 
     def asText(self):
         data = ""
